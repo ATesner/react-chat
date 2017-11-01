@@ -1,0 +1,22 @@
+{
+  "name": "reactchat",
+  "version": "1.0.0",
+  "description": "A chat app made with React, socket.io and MongoDB",
+  "main": "index.js",
+  "scripts": {
+    "chat": "react-scripts start",
+    "server": "nodemon ./src/server/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "TESNER Antoine",
+  "license": "ISC",
+  "dependencies": {
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0",
+    "react-scripts": "^1.0.16",
+    "socket.io": "^2.0.4"
+  },
+  "devDependencies": {
+    "nodemon": "^1.12.1"
+  }
+}
