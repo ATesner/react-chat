@@ -30,9 +30,9 @@ class App extends Component {
    * Callback function when the login form is submitted
    * @param user: the user send by the server
    */
-  connectionCallback = ({user}) => {
-    this.setState({ user })
-    console.log('User set', this.state.user)
+  connectionCallback = ({user, chats}) => {
+    this.setState({ user, chats })
+    console.log('User set', this.state.user, this.state.chats)
   }
 
   render() {
@@ -40,7 +40,7 @@ class App extends Component {
     if(this.state.user){
       return (
         <div>
-          <Layout socket={this.state.socket} user={this.state.user} />
+          <Layout socket={this.state.socket} user={this.state.user} chats={this.state.chats} />
         </div>
       )
     }else{

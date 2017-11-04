@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { MESSAGE_SENT } from '../../Events'
 
 class MessageForm extends Component {
 

@@ -5,6 +5,19 @@ const PORT = process.env.PORT || 3008
 
 var usersConnected = []
 
+var chats =  [
+    {
+        id: 1,
+        name: "public",
+        messages: []
+    },
+    {
+        id: 2,
+        name: "private",
+        messages: ["test"]
+    }
+]
+
 server.listen(PORT, () => {
     console.log('Server listening on PORT ' + PORT)
 })
@@ -23,7 +36,7 @@ io.on('connection', (socket) => {
         }
         usersConnected.push(user);
         console.log('Users connected', usersConnected)
-        callback({user})
+        callback({user, chats})
     })
 
     /**

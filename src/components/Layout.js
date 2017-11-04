@@ -12,18 +12,7 @@ class Layout extends Component {
             user: this.props.user,
             socket: this.props.socket,
             selectedChat: null,
-            chats: [
-                {
-                    id: 1,
-                    name: "public",
-                    messages: []
-                },
-                {
-                    id: 2,
-                    name: "private",
-                    messages: ["test"]
-                }
-            ]
+            chats: this.props.chats
         }
     }
  
@@ -36,7 +25,7 @@ class Layout extends Component {
         //console.log("newMessageToChat", chatId, message)
         let newChats = this.state.chats.map( (chat) => {
 
-            if(chat.id == chatId){
+            if(chat.id === chatId){
                 chat.messages.push(message)
             }
             return chat
