@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ChatBar from './chat/ChatBar'
 import ChatContainer from './chat/ChatContainer'
+import { MESSAGE_SENT } from '../Events'
 
 class Layout extends Component {
 
@@ -8,19 +9,44 @@ class Layout extends Component {
         super(props);
         
         this.state = {
+            user: this.props.user,
+            socket: this.props.socket,
             selectedChat: null,
             chats: [
                 {
                     id: 1,
-                    name: "public"
+                    name: "public",
+                    messages: []
+                },
+                {
+                    id: 2,
+                    name: "private",
+                    messages: ["test"]
                 }
             ]
         }
     }
-    
+ 
+    componentDidMount() {
+
+        this.state.socket.on(`${MESSAGE_SENT}`, this.newMessageToChat)
+    }
+
+    newMessageToChat = (chatId, message) => {
+        //console.log("newMessageToChat", chatId, message)
+        let newChats = this.state.chats.map( (chat) => {
+
+            if(chat.id == chatId){
+                chat.messages.push(message)
+            }
+            return chat
+        })
+        this.setState({ chats: newChats})
+    }
+
     handleSelectChat = (index) => {
         
-        console.log("SelectChat", this.state.chats[index])
+        //console.log("SelectChat", this.state.chats[index])
         this.setState({ selectedChat: this.state.chats[index] })
     }
 
@@ -34,7 +60,8 @@ class Layout extends Component {
                             chats={this.state.chats} />
                 </div>
                 <div className="col-sm-8">
-                    <ChatContainer selectedChat={this.state.selectedChat} />
+                    <ChatContainer socket={this.state.socket} 
+                            selectedChat={this.state.selectedChat} />
                 </div>
             </div>
         )

@@ -1,6 +1,6 @@
 const server = require('http').createServer()
 const io = require('socket.io')(server)
-const { USER_CONNECTION } = require('../Events')
+const { USER_CONNECTION, MESSAGE_SENT } = require('../Events')
 const PORT = process.env.PORT || 3008
 
 var usersConnected = []
@@ -24,6 +24,14 @@ io.on('connection', (socket) => {
         usersConnected.push(user);
         console.log('Users connected', usersConnected)
         callback({user})
+    })
+
+    /**
+     * when user submit a message
+     */
+    socket.on(MESSAGE_SENT, (chatId, message) => {
+        console.log("MESSAGE_SENT", chatId, message)
+        io.emit(`${MESSAGE_SENT}`, chatId, message)
     })
 })
 

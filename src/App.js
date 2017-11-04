@@ -40,7 +40,7 @@ class App extends Component {
     if(this.state.user){
       return (
         <div>
-          <Layout />
+          <Layout socket={this.state.socket} user={this.state.user} />
         </div>
       )
     }else{
