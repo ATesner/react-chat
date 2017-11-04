@@ -15,6 +15,7 @@ class ChatBar extends Component {
         e.preventDefault()
         console.log("Add chat", e.target.chatName.value)
         this.props.socket.emit(CREATE_CHAT, e.target.chatName.value)
+        e.target.chatName.value = ""
     }
 
     render() {
@@ -25,6 +26,7 @@ class ChatBar extends Component {
                 <form onSubmit={this.handleNewChat}>
                     <input type="text" name="chatName" placeholder="add a new chat" />
                     <input type="submit" value="Create" />
+                    <div className="error"> { this.props.chatExist ? 'Chat already exist': null} </div>
                 </form>
                 <ul>
                     {

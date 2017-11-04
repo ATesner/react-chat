@@ -27,6 +27,7 @@ class Login extends Component {
                     <input type="text" name="surname" placeholder="What's your surname ?" id="nameInput" />
                     <button type="submit"> Enter </button>
                 </form>
+                <div className="error"> { this.props.userExist ? 'User is taken': null} </div>
             </div>
         );
     }

@@ -24,9 +24,10 @@ class Messages extends Component {
                 {
                     messages.map((message, index) => {
                         return (
-                            <p key={index}>
-                            { message }
-                            </p>
+                            <div key={index}>
+                            <span> {message.username}</span>
+                            <p>{ message.text }</p>
+                            </div>
                         )
 
                     })

@@ -20,9 +20,9 @@ class ChatContainer extends Component {
 
     addMessageTochat = (message) => {
 
-        const { socket } = this.props
+        const { socket, user } = this.props
         console.log('EmitMessage', this.props.selectedChat.id,  message)
-        socket.emit(MESSAGE_SENT, this.props.selectedChat.id, message)
+        socket.emit(MESSAGE_SENT, this.props.selectedChat.id, message, user.name)
         //this.setState({ selectedChat })
     }
 

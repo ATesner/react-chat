@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import io from 'socket.io-client'
 import Login from './components/Login'
 import Layout from './components/Layout'
-
+import './app.css'
 var socketURL = "http://localhost:3008"
 
 class App extends Component {
@@ -12,7 +12,8 @@ class App extends Component {
 
     this.state = {
       socket: null,
-      user: null
+      user: null,
+      userExist: false
     }
   }
 
@@ -30,8 +31,13 @@ class App extends Component {
    * Callback function when the login form is submitted
    * @param user: the user send by the server
    */
-  connectionCallback = ({user}) => {
-    this.setState({ user })
+  connectionCallback = (user) => {
+    if(user !== null) {
+      this.setState({ user })
+    }else {
+      this.setState({ userExist: true })
+    }
+    
     console.log('User set', this.state.user)
   }
 
@@ -47,7 +53,8 @@ class App extends Component {
       return (
         <div>
           <Login connectionCallback={this.connectionCallback}
-              socket={this.state.socket} />
+              socket={this.state.socket}
+              userExist={this.state.userExist} />
         </div>
       )
       
