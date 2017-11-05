@@ -21,7 +21,7 @@ io.on('connection', (socket) => {
     //console.log('Client Connecté !')
 
     /**
-     * when a user submit the login form
+     * when a user submit the login form tradaa
      */
     socket.on(USER_CONNECTION, (username, callback) => {
         
