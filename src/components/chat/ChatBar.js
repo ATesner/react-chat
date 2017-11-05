@@ -32,7 +32,7 @@ class ChatBar extends Component {
                     {
                         this.props.chats.map((chat, index) => {
                             return(
-                                <li key={chat.id} onClick={this.props.handleSelectChat.bind(this,index)}
+                                <li className="chatList" key={chat.id} onClick={this.props.handleSelectChat.bind(this,index)}
                                  > {chat.name} </li>
                             )
 

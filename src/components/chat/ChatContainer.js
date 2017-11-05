@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Messages from './Messages'
 import MessageForm from './MessageForm'
-import { MESSAGE_SENT } from '../../Events'
+import { MESSAGE_SENT, IS_TYPING } from '../../Events'
 
 class ChatContainer extends Component {
 
@@ -26,6 +26,15 @@ class ChatContainer extends Component {
         //this.setState({ selectedChat })
     }
 
+    sendTyping = (isTyping) => {
+
+        const { socket, user } = this.props
+
+         //if the user is typing
+            socket.emit(IS_TYPING, isTyping, user.name)
+        
+    }
+
 
     render() {
         const { selectedChat } = this.props
@@ -36,7 +45,7 @@ class ChatContainer extends Component {
                     { selectedChat.name }
                     <Messages messages={selectedChat.messages}/>
                     <MessageForm addMessageTochat={this.addMessageTochat}
-                     />
+                      sendTyping={this.sendTyping}/>
                 </div>
             )
         }else{
