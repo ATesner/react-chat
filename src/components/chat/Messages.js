@@ -18,7 +18,7 @@ class Messages extends Component {
 
     render() {
         const { messages } = this.props
-        console.log('NEWRENDER', messages)
+
         return (
             <div>
                 {
@@ -32,6 +32,7 @@ class Messages extends Component {
 
                     })
                 }
+                <div> { this.props.whoIsTyping ? this.props.whoIsTyping + ' is Typing...' :  null } </div>
             </div>
         );
     }

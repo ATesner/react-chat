@@ -9,14 +9,16 @@ class ChatContainer extends Component {
         super(props);
         
         this.state = {
-            selectedChat: null
+            selectedChat: null,
+            whoIsTyping: null
         }
     }
     
-    ComponentWillMount() {
+    componentWillMount() {
 
-        //this.props.socket.on(MESSAGE_SENT, )
+        this.props.socket.on(IS_TYPING, this.whoIsTyping)
     }
+
 
     addMessageTochat = (message) => {
 
@@ -28,11 +30,20 @@ class ChatContainer extends Component {
 
     sendTyping = (isTyping) => {
 
-        const { socket, user } = this.props
+        const { socket, user, selectedChat } = this.props
 
          //if the user is typing
-            socket.emit(IS_TYPING, isTyping, user.name)
+            socket.emit(IS_TYPING, isTyping, user.name, selectedChat.id )
         
+    }
+
+    whoIsTyping = (isTyping, username, chatId) => {
+        console.log('WhoIsTyping', isTyping, username, chatId)
+        if(isTyping && this.props.user.name !== username && this.props.selectedChat.id === chatId){
+            this.setState({ whoIsTyping: username })
+        }else{
+            this.setState({ whoIsTyping: null })
+        }
     }
 
 
@@ -43,7 +54,7 @@ class ChatContainer extends Component {
             return (
                 <div>
                     { selectedChat.name }
-                    <Messages messages={selectedChat.messages}/>
+                    <Messages messages={selectedChat.messages} whoIsTyping={this.state.whoIsTyping}/>
                     <MessageForm addMessageTochat={this.addMessageTochat}
                       sendTyping={this.sendTyping}/>
                 </div>

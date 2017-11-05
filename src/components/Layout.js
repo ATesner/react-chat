@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ChatBar from './chat/ChatBar'
 import ChatContainer from './chat/ChatContainer'
-import { MESSAGE_SENT, GET_CHATS } from '../Events'
+import { MESSAGE_SENT, GET_CHATS, IS_TYPING } from '../Events'
 
 class Layout extends Component {
 

@@ -94,9 +94,9 @@ io.on('connection', (socket) => {
         }
     })
 
-    socket.on(IS_TYPING, (isTyping, username) => {
-        console.log('ISTYPING', isTyping, username)
-        io.emit(IS_TYPING, isTyping, username)
+    socket.on(IS_TYPING, (isTyping, username, chatId) => {
+        console.log('ISTYPING', isTyping, username, chatId)
+        io.emit(IS_TYPING, isTyping, username, chatId)
     })
 
 })
