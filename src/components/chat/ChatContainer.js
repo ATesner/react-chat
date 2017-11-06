@@ -53,9 +53,13 @@ class ChatContainer extends Component {
             return (
                 <div className="chat-container">
                     <Messages user={this.props.user} 
-                        messages={selectedChat.messages} whoIsTyping={this.state.whoIsTyping}/>
+                        messages={selectedChat.messages} />
+                    <div className="isTyping-container"> 
+                        { this.state.whoIsTyping ? this.state.whoIsTyping + ' is typing...' :  null } 
+                    </div>
                     <MessageForm addMessageTochat={this.addMessageTochat}
-                      sendTyping={this.sendTyping}/>
+                      sendTyping={this.sendTyping}
+                      whoIsTyping={this.state.whoIsTyping}/>
                 </div>
             )
         }else{

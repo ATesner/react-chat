@@ -38,7 +38,6 @@ class Messages extends Component {
 
                     })
                 }
-                <div> { this.props.whoIsTyping ? this.props.whoIsTyping + ' is Typing...' :  null } </div>
             </div>
         );
     }
