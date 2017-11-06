@@ -21,8 +21,8 @@ class Login extends Component {
 
     render() {
         return (
-            <div>
-                <form onSubmit={this.handleSubmit}>
+            <div className="login-container">
+                <form onSubmit={this.handleSubmit} className="login-form">
                     <label htmlFor="nameInput"> Choose a name </label>
                     <input type="text" name="surname" placeholder="What's your surname ?" id="nameInput" />
                     <button type="submit"> Enter </button>

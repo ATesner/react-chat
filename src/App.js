@@ -20,9 +20,9 @@ class App extends Component {
   componentDidMount(){
     let socket = io(socketURL)
 
-    socket.on('connect', ()=> {
+    /*socket.on('connect', ()=> {
       console.log('connected !')
-    })
+    })*/
 
     this.setState({socket}) //set the socket in state
   }
@@ -38,20 +38,20 @@ class App extends Component {
       this.setState({ userExist: true })
     }
     
-    console.log('User set', this.state.user)
+    //console.log('User set', this.state.user)
   }
 
   render() {
 
     if(this.state.user){
       return (
-        <div>
+        <div className="container">
           <Layout socket={this.state.socket} user={this.state.user} />
         </div>
       )
     }else{
       return (
-        <div>
+        <div className="container">
           <Login connectionCallback={this.connectionCallback}
               socket={this.state.socket}
               userExist={this.state.userExist} />

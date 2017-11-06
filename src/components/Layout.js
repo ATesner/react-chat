@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ChatBar from './chat/ChatBar'
 import ChatContainer from './chat/ChatContainer'
-import { MESSAGE_SENT, GET_CHATS, IS_TYPING } from '../Events'
+import { MESSAGE_SENT, GET_CHATS } from '../Events'
 
 class Layout extends Component {
 
@@ -43,7 +43,7 @@ class Layout extends Component {
     }
 
     getChats = (chats) => {
-        console.log('addNewChat', chats)
+        //console.log('addNewChat', chats)
         if(chats !== null){
             this.setState({ chats })
             this.setState({ chatExist: false })
@@ -62,19 +62,15 @@ class Layout extends Component {
     render() {
 
         return (
-            <div>
-                <div className="col-sm-4">
+            <div className="container">
                     <ChatBar handleSelectChat={this.handleSelectChat}
                             socket={this.state.socket}
                             chats={this.state.chats}
                             chatExist={this.state.chatExist}
                             user={this.props.user} />
-                </div>
-                <div className="col-sm-8">
                     <ChatContainer socket={this.state.socket} 
                             selectedChat={this.state.chats[this.state.index]}
-                            user={this.props.user} />
-                </div>
+                            user={this.state.user} />
             </div>
         )
     }

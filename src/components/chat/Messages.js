@@ -17,16 +17,22 @@ class Messages extends Component {
     }*/
 
     render() {
-        const { messages } = this.props
+        const { messages, user } = this.props
 
         return (
-            <div>
+            <div className="message-container" >
                 {
                     messages.map((message, index) => {
                         return (
-                            <div key={index}>
-                            <span> {message.username}</span>
-                            <p>{ message.text }</p>
+                            <div className={(user.name !== message.username ? 'right' : '')} key={index}>
+                            <div className="message-author"> 
+                                { this.props.user.name === message.username ? 
+                                    'Me :'
+                                    :
+                                    message.username + ' :'
+                                } </div>
+                            <p className={"message-text "}
+                                style={{ backgroundColor: (user.name !== message.username) ? '#6bbcda' : '#ffffff'}}>{ message.text }</p>
                             </div>
                         )
 

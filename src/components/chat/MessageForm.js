@@ -32,10 +32,11 @@ class MessageForm extends Component {
 
     render() {
         return (
-            <div>
-                <form onSubmit={this.handleMessageFormSubmit} >
-                    <input type="text" name="message" placeholder="Type here" onKeyDown={this.handleKeyDown} />
-                    <button type="submit">Send</button>
+            <div className="messageForm-container">
+                <form onSubmit={this.handleMessageFormSubmit} className="messageForm-form" >
+                    <input className="form-control" type="text" name="message" 
+                        placeholder="Type here" onKeyDown={this.handleKeyDown} />
+
                 </form>
             </div>
         );

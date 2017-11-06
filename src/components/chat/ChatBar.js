@@ -13,22 +13,26 @@ class ChatBar extends Component {
     
     handleNewChat = (e) => {
         e.preventDefault()
-        console.log("Add chat", e.target.chatName.value)
-        this.props.socket.emit(CREATE_CHAT, e.target.chatName.value)
-        e.target.chatName.value = ""
+        let chatName = e.target.chatName.value;
+        if(chatName.length > 0){
+            console.log("Add chat", chatName)
+            this.props.socket.emit(CREATE_CHAT, chatName)
+            e.target.chatName.value = ""
+        }
     }
 
     render() {
 
         return (
-            <div>
+            <div className="menubar-container">
                 <h3> React Chat </h3>
                 <form onSubmit={this.handleNewChat}>
-                    <input type="text" name="chatName" placeholder="add a new chat" />
-                    <input type="submit" value="Create" />
+                    <input className="form-control" type="text" name="chatName" placeholder="Add a new chat" />
+                    <input className="form-control" type="submit" value="Create" />
                     <div className="error"> { this.props.chatExist ? 'Chat already exist': null} </div>
                 </form>
-                <ul>
+                <hr/>
+                <ul className="list-group">
                     {
                         this.props.chats.map((chat, index) => {
                             return(
