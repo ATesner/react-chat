@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { CREATE_CHAT } from '../../Events'
+import { CREATE_CHAT, LOGOUT } from '../../Events'
 
 class ChatBar extends Component {
 
@@ -10,7 +10,7 @@ class ChatBar extends Component {
 
         }
     }
-    
+
     handleNewChat = (e) => {
         e.preventDefault()
         let chatName = e.target.chatName.value;
@@ -19,6 +19,12 @@ class ChatBar extends Component {
             this.props.socket.emit(CREATE_CHAT, chatName)
             e.target.chatName.value = ""
         }
+    }
+
+    logout = () => {
+        console.log("logout", this.props.user.name)
+        const { socket, user } = this.props
+        socket.emit(LOGOUT, user)
     }
 
     render() {
@@ -32,6 +38,7 @@ class ChatBar extends Component {
                     <div className="error"> { this.props.chatExist ? 'Chat already exist': null} </div>
                 </form>
                 <hr/>
+                <h4> Chat List </h4>
                 <ul className="list-group">
                     {
                         this.props.chats.map((chat, index) => {
@@ -44,6 +51,10 @@ class ChatBar extends Component {
                     }
                     
                 </ul>
+                <div className="user-container">
+                    <div>Your name: { this.props.user.name}</div>
+                    <button className="btn btn-block btn-danger" onClick={this.logout}>Logout</button>
+                </div>
             </div>
         );
     }

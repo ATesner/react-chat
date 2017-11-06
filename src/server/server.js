@@ -1,6 +1,6 @@
 const server = require('http').createServer()
 const io = require('socket.io')(server)
-const { USER_CONNECTION, MESSAGE_SENT, CREATE_CHAT, GET_CHATS, IS_TYPING } = require('../Events')
+const { USER_CONNECTION, MESSAGE_SENT, CREATE_CHAT, GET_CHATS, IS_TYPING, LOGOUT } = require('../Events')
 const PORT = process.env.PORT || 3008
 
 var usersConnected = []
@@ -99,6 +99,16 @@ io.on('connection', (socket) => {
         io.emit(IS_TYPING, isTyping, username, chatId)
     })
 
+    socket.on(LOGOUT, (user) => {
+
+        usersConnected.forEach((user_connected, index) => {
+            if(user_connected.id === user.id){
+                usersConnected.splice(index)
+            }
+        })
+        console.log('LOGOUT', usersConnected)
+        io.emit(LOGOUT, user.id)
+    })
 })
 
 

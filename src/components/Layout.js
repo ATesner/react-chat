@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ChatBar from './chat/ChatBar'
 import ChatContainer from './chat/ChatContainer'
-import { MESSAGE_SENT, GET_CHATS } from '../Events'
+import { MESSAGE_SENT, GET_CHATS, LOGOUT } from '../Events'
 
 class Layout extends Component {
 
@@ -21,14 +21,13 @@ class Layout extends Component {
         const { socket } = this.state
         socket.on(MESSAGE_SENT, this.newMessageToChat)
         socket.on(GET_CHATS, this.getChats)
+        socket.on(LOGOUT, this.props.logout)
         socket.emit(GET_CHATS)
     }
 
-    componentDidMount() {
+    
 
-
-    }
-
+  
     newMessageToChat = (chatId, newMessage) => {
         //console.log("newMessageToChat", chatId, message)
         let newChats = this.state.chats.map( (chat) => {

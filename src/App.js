@@ -17,9 +17,10 @@ class App extends Component {
     }
   }
 
-  componentDidMount(){
+  componentWillMount(){
     let socket = io(socketURL)
 
+    console.log('WILLMOUNT')
     /*socket.on('connect', ()=> {
       console.log('connected !')
     })*/
@@ -38,7 +39,14 @@ class App extends Component {
       this.setState({ userExist: true })
     }
     
-    //console.log('User set', this.state.user)
+    console.log('User set', this.state.user)
+  }
+
+  logout = (userId) => {
+  
+    if(this.state.user.id === userId){
+        this.setState({ user: null })
+    }
   }
 
   render() {
@@ -46,7 +54,7 @@ class App extends Component {
     if(this.state.user){
       return (
         <div className="container">
-          <Layout socket={this.state.socket} user={this.state.user} />
+          <Layout socket={this.state.socket} user={this.state.user} logout={this.logout} />
         </div>
       )
     }else{

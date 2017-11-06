@@ -57,6 +57,13 @@ html,body,#root{
     width: 100%;
 }
 
+.user-container {
+    margin: 0;   
+    position: absolute;
+    bottom:10px;
+    left:10px;
+}
+
 .isTyping-container {
     position: absolute;
     bottom: 38px;
@@ -93,6 +100,7 @@ html,body,#root{
     height:100%;
     margin: 0;
     background-color: #c7d2f1;
+    overflow-y:scroll;
 }
 
 .message-author {
