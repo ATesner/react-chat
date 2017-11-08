@@ -16,7 +16,7 @@ class App extends Component {
       userExist: false
     }
   }
-
+//redux
   componentWillMount(){
     let socket = io(socketURL)
 
