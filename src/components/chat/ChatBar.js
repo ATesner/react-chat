@@ -1,4 +1,7 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import { selectChat } from '../../actions/index'
 import { CREATE_CHAT, LOGOUT } from '../../Events'
 
 class ChatBar extends Component {
@@ -43,8 +46,10 @@ class ChatBar extends Component {
                     {
                         this.props.chats.map((chat, index) => {
                             return(
-                                <li className="chatList" key={chat.id} onClick={this.props.handleSelectChat.bind(this,index)}
-                                 > {chat.name} </li>
+                                <li className="chatList" key={chat.id} 
+                                    //onClick={this.props.handleSelectChat.bind(this,index)}
+                                    onClick={ () => this.props.selectChat(chat) } > 
+                                    {chat.name} </li>
                             )
 
                         })
@@ -60,4 +65,17 @@ class ChatBar extends Component {
     }
 }
 
-export default ChatBar;
+function mapStateToProps(state) {
+    return {
+        user: state.user,
+        chatsStore: state.chats
+    }
+}
+
+function matchDispatchToProps(dispatch){
+    return bindActionCreators({
+        selectChat: selectChat
+    }, dispatch)
+}
+
+export default connect(mapStateToProps, matchDispatchToProps)(ChatBar);

@@ -3,6 +3,10 @@ import io from 'socket.io-client'
 import Login from './components/Login'
 import Layout from './components/Layout'
 import './app.css'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import { setUser, setSocket } from './actions'
+
 var socketURL = "http://localhost:3008"
 
 class App extends Component {
@@ -11,8 +15,8 @@ class App extends Component {
     super(props)
 
     this.state = {
-      socket: null,
-      user: null,
+     // socket: null,
+      //user: null,
       userExist: false
     }
   }
@@ -20,12 +24,12 @@ class App extends Component {
   componentWillMount(){
     let socket = io(socketURL)
 
-    console.log('WILLMOUNT')
+    console.log('WILLMOUNT', this.props.store)
     /*socket.on('connect', ()=> {
       console.log('connected !')
     })*/
-
-    this.setState({socket}) //set the socket in state
+    this.props.setSocket(socket)
+    //this.setState({socket}) //set the socket in state
   }
 
   /**
@@ -34,7 +38,9 @@ class App extends Component {
    */
   connectionCallback = (user) => {
     if(user !== null) {
-      this.setState({ user })
+      
+      this.props.setUser(user);
+     // this.setState({ user })
     }else {
       this.setState({ userExist: true })
     }
@@ -43,25 +49,25 @@ class App extends Component {
   }
 
   logout = (userId) => {
-  
+    console.log('acticheChat', this.props.store.activeChat)
     if(this.state.user.id === userId){
-        this.setState({ user: null })
+       // this.setState({ user: null })
     }
   }
 
   render() {
 
-    if(this.state.user){
+    if(this.props.user){
       return (
         <div className="container">
-          <Layout socket={this.state.socket} user={this.state.user} logout={this.logout} />
+          <Layout socket={this.props.socket} logout={this.logout} />
         </div>
       )
     }else{
       return (
         <div className="container">
           <Login connectionCallback={this.connectionCallback}
-              socket={this.state.socket}
+              socket={this.props.socket}
               userExist={this.state.userExist} />
         </div>
       )
@@ -71,4 +77,18 @@ class App extends Component {
   }
 }
 
-export default App;
+function mapStateToProps(state){
+  return {
+    user: state.user,
+    socket: state.socket
+  }
+}
+
+function matchDispatchToProps(dispatch){
+  return bindActionCreators({
+    setUser: setUser,
+    setSocket: setSocket
+  }, dispatch)
+}
+
+export default connect(mapStateToProps, matchDispatchToProps)(App);

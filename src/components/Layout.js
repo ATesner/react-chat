@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import { selectChat } from '../actions/index'
 import ChatBar from './chat/ChatBar'
 import ChatContainer from './chat/ChatContainer'
 import { MESSAGE_SENT, GET_CHATS, LOGOUT } from '../Events'
@@ -10,7 +13,7 @@ class Layout extends Component {
         
         this.state = {
             user: this.props.user,
-            socket: this.props.socket,
+            //socket: this.props.socket,
             chatExist: false,
             chats: [],
             index: 0
@@ -18,7 +21,7 @@ class Layout extends Component {
     }
  
     componentWillMount() {
-        const { socket } = this.state
+        const { socket } = this.props
         socket.on(MESSAGE_SENT, this.newMessageToChat)
         socket.on(GET_CHATS, this.getChats)
         socket.on(LOGOUT, this.props.logout)
@@ -52,7 +55,7 @@ class Layout extends Component {
     }
 
     handleSelectChat = (index) => {
-        
+        console.log('Layout activeChat', this.props.activeChat)
         //console.log("SelectChat", this.state.chats[index])
         this.setState({ index: index })
     }
@@ -63,11 +66,11 @@ class Layout extends Component {
         return (
             <div className="container">
                     <ChatBar handleSelectChat={this.handleSelectChat}
-                            socket={this.state.socket}
+                            socket={this.props.socket}
                             chats={this.state.chats}
                             chatExist={this.state.chatExist}
                             user={this.props.user} />
-                    <ChatContainer socket={this.state.socket} 
+                    <ChatContainer socket={this.props.socket} 
                             selectedChat={this.state.chats[this.state.index]}
                             user={this.state.user} />
             </div>
@@ -75,4 +78,19 @@ class Layout extends Component {
     }
 }
 
-export default Layout;
+function mapStateToProps(state) {
+    return {
+        userStore: state.user,
+        chatsStore: state.chats,
+        activeChat: state.activeChat,
+        socket: state.socket
+    }
+}
+
+function matchDispatchToProps(dispatch){
+    return bindActionCreators({
+        selectChat: selectChat
+    }, dispatch)
+}
+
+export default connect(mapStateToProps, matchDispatchToProps)(Layout);
