@@ -14,10 +14,26 @@ export const setUser = (user) => {
     }
 }
 
-export const selectChat = (chat) => {
-    console.log('SelectChat', chat.name)
+export const setChats = (chats) => {
+    console.log('SetChats Action', chats)
+    return {
+        type: "SET_CHATS",
+        payload: chats
+    }
+}
+
+export const selectChat = (index) => {
+    console.log('SelectChat Action', index)
     return {
         type: "CHAT_SELECTED",
+        payload: index
+    }
+}
+
+export const addChat = (chat) => {
+    console.log('addChat Action', chat)
+    return {
+        type: "NEW_CHAT",
         payload: chat
     }
 }

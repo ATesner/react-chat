@@ -1,5 +1,5 @@
-export default function(state={ id: null, name: null, messages: []}, action) {
-    console.log('activeReducer', action, state)
+export default function(state=null, action) {
+
     switch(action.type){
         case 'CHAT_SELECTED':
             return action.payload

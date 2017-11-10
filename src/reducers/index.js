@@ -6,7 +6,7 @@ import SocketReducer from './reducer-socket'
 
 const allReducers = combineReducers({
     chats: ChatsReducer,
-    activeChat: activeChatReducer,
+    activeChatIndex: activeChatReducer,
     user: UserReducer,
     socket: SocketReducer
 })

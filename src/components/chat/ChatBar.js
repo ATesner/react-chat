@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { selectChat } from '../../actions/index'
-import { CREATE_CHAT, LOGOUT } from '../../Events'
+import { selectChat, setUser, setChats, addChat } from '../../actions'
+import { CREATE_CHAT, MESSAGE_SENT, LOGOUT } from '../../Events'
 
 class ChatBar extends Component {
 
@@ -10,24 +10,56 @@ class ChatBar extends Component {
         super(props);
         
         this.state = {
-
+            chatExist: false
         }
+    }
+
+    componentWillMount() {
+        
+        const { socket } = this.props
+        socket.on(CREATE_CHAT, this.addChat)
+        socket.on(MESSAGE_SENT, this.newMessageToChat)
+    }
+
+    /**
+     * when a user add a chat
+     */
+    addChat = (newChat) => {
+
+        this.props.addChat(newChat)
     }
 
     handleNewChat = (e) => {
         e.preventDefault()
+        this.setState({ chatExist: false });
         let chatName = e.target.chatName.value;
         if(chatName.length > 0){
-            console.log("Add chat", chatName)
-            this.props.socket.emit(CREATE_CHAT, chatName)
+
+            this.props.socket.emit(CREATE_CHAT, chatName, () => {
+                this.setState({ chatExist: true });
+            })
             e.target.chatName.value = ""
         }
     }
 
+    newMessageToChat = (chatId, newMessage) => {
+        //console.log("newMessageToChat", chatId, message)
+        let newChats = this.props.chats.map( (chat) => {
+
+            if(chat.id === chatId){
+                chat.messages.push(newMessage)
+            }
+            return chat
+        })
+        console.log('MESSAGE ADDED', newChats)
+        this.props.setChats(newChats)
+    }
+
     logout = () => {
-        console.log("logout", this.props.user.name)
+
         const { socket, user } = this.props
         socket.emit(LOGOUT, user)
+        this.props.setUser(null)
     }
 
     render() {
@@ -38,7 +70,7 @@ class ChatBar extends Component {
                 <form onSubmit={this.handleNewChat}>
                     <input className="form-control" type="text" name="chatName" placeholder="Add a new chat" />
                     <input className="form-control" type="submit" value="Create" />
-                    <div className="error"> { this.props.chatExist ? 'Chat already exist': null} </div>
+                    <div className="error"> { this.state.chatExist ? 'Chat already exist': null} </div>
                 </form>
                 <hr/>
                 <h4> Chat List </h4>
@@ -47,9 +79,9 @@ class ChatBar extends Component {
                         this.props.chats.map((chat, index) => {
                             return(
                                 <li className="chatList" key={chat.id} 
-                                    //onClick={this.props.handleSelectChat.bind(this,index)}
-                                    onClick={ () => this.props.selectChat(chat) } > 
-                                    {chat.name} </li>
+                                    onClick={ () => this.props.selectChat(index) } > 
+                                    {chat.name}
+                                </li>
                             )
 
                         })
@@ -68,13 +100,17 @@ class ChatBar extends Component {
 function mapStateToProps(state) {
     return {
         user: state.user,
-        chatsStore: state.chats
+        chats: state.chats,
+        socket: state.socket
     }
 }
 
 function matchDispatchToProps(dispatch){
     return bindActionCreators({
-        selectChat: selectChat
+        selectChat: selectChat,
+        setUser: setUser,
+        setChats: setChats,
+        addChat: addChat
     }, dispatch)
 }
 

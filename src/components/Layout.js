@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { selectChat } from '../actions/index'
+import { selectChat, setChats } from '../actions/index'
 import ChatBar from './chat/ChatBar'
 import ChatContainer from './chat/ChatContainer'
-import { MESSAGE_SENT, GET_CHATS, LOGOUT } from '../Events'
+import { GET_CHATS } from '../Events'
 
 class Layout extends Component {
 
@@ -12,26 +12,30 @@ class Layout extends Component {
         super(props);
         
         this.state = {
-            user: this.props.user,
+            //user: this.props.user,
             //socket: this.props.socket,
-            chatExist: false,
-            chats: [],
-            index: 0
+           // chatExist: false,
+           // chats: [],
+           // index: 0
         }
     }
  
     componentWillMount() {
-        const { socket } = this.props
-        socket.on(MESSAGE_SENT, this.newMessageToChat)
-        socket.on(GET_CHATS, this.getChats)
-        socket.on(LOGOUT, this.props.logout)
-        socket.emit(GET_CHATS)
+       // const { socket } = this.props
+      //  socket.on(MESSAGE_SENT, this.newMessageToChat)
+        //socket.on(GET_CHATS, this.getChats)
+      //  socket.on(LOGOUT, this.props.logout)
+      //  socket.emit(GET_CHATS)
+        this.props.socket.emit(GET_CHATS, (chats) =>{
+            console.log('GET_CHATS', chats)
+            this.props.setChats(chats)
+        })
     }
 
     
 
   
-    newMessageToChat = (chatId, newMessage) => {
+    /*newMessageToChat = (chatId, newMessage) => {
         //console.log("newMessageToChat", chatId, message)
         let newChats = this.state.chats.map( (chat) => {
 
@@ -42,9 +46,9 @@ class Layout extends Component {
         })
         this.setState({ chats: newChats})
 
-    }
+    }*/
 
-    getChats = (chats) => {
+   /* getChats = (chats) => {
         //console.log('addNewChat', chats)
         if(chats !== null){
             this.setState({ chats })
@@ -58,30 +62,29 @@ class Layout extends Component {
         console.log('Layout activeChat', this.props.activeChat)
         //console.log("SelectChat", this.state.chats[index])
         this.setState({ index: index })
-    }
+    }*/
 
 
     render() {
+        if(this.props.chats){
+            return (
+                <div className="container">
+                        <ChatBar />
+                        <ChatContainer />
+                </div>
+            )
+        }else{
+            return (
+                <div>Loading Chats...</div>
+            )
+        }
 
-        return (
-            <div className="container">
-                    <ChatBar handleSelectChat={this.handleSelectChat}
-                            socket={this.props.socket}
-                            chats={this.state.chats}
-                            chatExist={this.state.chatExist}
-                            user={this.props.user} />
-                    <ChatContainer socket={this.props.socket} 
-                            selectedChat={this.state.chats[this.state.index]}
-                            user={this.state.user} />
-            </div>
-        )
     }
 }
 
 function mapStateToProps(state) {
     return {
-        userStore: state.user,
-        chatsStore: state.chats,
+        chats: state.chats,
         activeChat: state.activeChat,
         socket: state.socket
     }
@@ -89,7 +92,8 @@ function mapStateToProps(state) {
 
 function matchDispatchToProps(dispatch){
     return bindActionCreators({
-        selectChat: selectChat
+        selectChat: selectChat,
+        setChats: setChats
     }, dispatch)
 }
 

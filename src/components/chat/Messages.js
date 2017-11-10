@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux'
 
 class Messages extends Component {
 
@@ -17,16 +18,16 @@ class Messages extends Component {
     }*/
 
     render() {
-        const { messages, user } = this.props
-
+        const { chats, activeChatIndex, user } = this.props
+        console.log('activeeeeee', chats[activeChatIndex])
         return (
             <div className="message-container" >
                 {
-                    messages.map((message, index) => {
+                    chats[activeChatIndex].messages.map((message, index) => {
                         return (
                             <div className={(user.name !== message.username ? 'right' : '')} key={index}>
                             <div className="message-author"> 
-                                { this.props.user.name === message.username ? 
+                                { user.name === message.username ? 
                                     'Me :'
                                     :
                                     message.username + ' :'
@@ -43,4 +44,12 @@ class Messages extends Component {
     }
 }
 
-export default Messages;
+function mapStateToProps(state){
+    return {
+        user: state.user,
+        chats: state.chats,
+        activeChatIndex: state.activeChatIndex
+    }
+}
+
+export default connect(mapStateToProps)(Messages);

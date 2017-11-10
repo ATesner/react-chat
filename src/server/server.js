@@ -48,10 +48,10 @@ io.on('connection', (socket) => {
     })
 
     /**
-     * To send all chats to users
+     * To send all chats to a user
      */
-    socket.on(GET_CHATS, () => {
-        io.emit(GET_CHATS, chats)
+    socket.on(GET_CHATS, (callback) => {
+       callback(chats)
     })
 
     /**
@@ -75,7 +75,7 @@ io.on('connection', (socket) => {
     /**
      * When a user create a chat
      */
-    socket.on(CREATE_CHAT, (chatName) => {
+    socket.on(CREATE_CHAT, (chatName, callback) => {
         //console.log("Chat create", chatName)
         let chatExist = false;
         chats.forEach((chat) => {
@@ -85,12 +85,12 @@ io.on('connection', (socket) => {
         })
 
         if(chatExist){
-            io.emit(GET_CHATS, null)
+            callback()
         }else{
             
             let newchat = { id: chats.length, name: chatName, messages: []}
             chats.push(newchat)
-            io.emit(GET_CHATS, chats)
+            io.emit(CREATE_CHAT, newchat)
         }
     })
 
@@ -107,7 +107,6 @@ io.on('connection', (socket) => {
             }
         })
         console.log('LOGOUT', usersConnected)
-        io.emit(LOGOUT, user.id)
     })
 })
 

@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux'
+import { MESSAGE_SENT } from '../../Events'
 
 class MessageForm extends Component {
 
@@ -14,10 +16,14 @@ class MessageForm extends Component {
     handleMessageFormSubmit = (e) => {
         e.preventDefault()
 
-        this.props.addMessageTochat(e.target.message.value)
+        let message = e.target.message.value
+        const { socket, user, activeChatIndex, chats } = this.props
+        console.log('EmitMessage', chats[activeChatIndex].id,  message)
+        socket.emit(MESSAGE_SENT, chats[activeChatIndex].id, message, user.name)
+
         e.target.message.value = ""
     }
-    
+
     handleKeyDown = (e) => {
         console.log('KeyUp', e.target.value)
         this.setState({ lastTypingDate: Date.now() }) //save the time when the user start typing
@@ -43,4 +49,13 @@ class MessageForm extends Component {
     }
 }
 
-export default MessageForm;
+function mapStateToProps(state){
+    return {
+        socket: state.socket,
+        user: state.user,
+        activeChatIndex: state.activeChatIndex,
+        chats: state.chats
+    }
+}
+
+export default connect(mapStateToProps)(MessageForm);
