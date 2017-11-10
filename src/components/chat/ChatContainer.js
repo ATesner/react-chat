@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Messages from './Messages'
 import MessageForm from './MessageForm'
-import { MESSAGE_SENT, IS_TYPING } from '../../Events'
+import { IS_TYPING } from '../../Events'
 import { connect } from 'react-redux'
 
 class ChatContainer extends Component {
@@ -20,14 +20,6 @@ class ChatContainer extends Component {
         this.props.socket.on(IS_TYPING, this.whoIsTyping)
     }
 
-   /* addMessageTochat = (message) => {
-
-        const { socket, user } = this.props
-        console.log('EmitMessage', this.props.activeChat.id,  message)
-        socket.emit(MESSAGE_SENT, this.props.activeChat.id, message, user.name)
-        //this.setState({ selectedChat })
-    }*/
-
     sendTyping = (isTyping) => {
 
         const { socket, user, chats, activeChatIndex } = this.props
@@ -38,8 +30,11 @@ class ChatContainer extends Component {
     }
 
     whoIsTyping = (isTyping, username, chatId) => {
+
         //console.log('WhoIsTyping', isTyping, username, chatId)
-        if(isTyping && this.props.user.name !== username && this.props.chats[this.props.activeChatIndex].id === chatId){
+        const { user, chats, activeChatIndex } = this.props
+
+        if(isTyping && user.name !== username && chats[activeChatIndex].id === chatId){
             this.setState({ whoIsTyping: username })
         }else{
             this.setState({ whoIsTyping: null })
@@ -57,9 +52,7 @@ class ChatContainer extends Component {
                     <div className="isTyping-container"> 
                         { this.state.whoIsTyping ? this.state.whoIsTyping + ' is typing...' :  null } 
                     </div>
-                    <MessageForm
-                      sendTyping={this.sendTyping}
-                      whoIsTyping={this.state.whoIsTyping}/>
+                    <MessageForm />
                 </div>
             )
         }else{

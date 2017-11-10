@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import { MESSAGE_SENT } from '../../Events'
+import { MESSAGE_SENT, IS_TYPING } from '../../Events'
 
 class MessageForm extends Component {
 
@@ -25,14 +25,17 @@ class MessageForm extends Component {
     }
 
     handleKeyDown = (e) => {
-        console.log('KeyUp', e.target.value)
+        
+        //console.log('KeyUp', e.target.value)
+        const { socket, user, chats, activeChatIndex } = this.props
+        
         this.setState({ lastTypingDate: Date.now() }) //save the time when the user start typing
-        this.props.sendTyping(true)
+        socket.emit(IS_TYPING, true, user.name, chats[activeChatIndex].id ) 
 
         setTimeout(()=> {
             //if the user did not type since 300ms
             if(Date.now() - this.state.lastTypingDate > 300) 
-                this.props.sendTyping(false)
+            socket.emit(IS_TYPING, false, user.name, chats[activeChatIndex].id ) 
         }, 300)
     }
 

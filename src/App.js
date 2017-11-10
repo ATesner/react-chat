@@ -4,7 +4,8 @@ import { bindActionCreators } from 'redux'
 import { setSocket } from './actions'
 import io from 'socket.io-client'
 import Login from './components/Login'
-import Layout from './components/Layout'
+import ChatBar from './components/chat/ChatBar'
+import ChatContainer from './components/chat/ChatContainer'
 import './app.css'
 
 var socketURL = "http://localhost:3008"
@@ -19,10 +20,11 @@ class App extends Component {
 
     render() {
 
-        if(this.props.user){
+        if(this.props.user && this.props.chats){
             return (
                 <div className="container">
-                    <Layout />
+                    <ChatBar />
+                    <ChatContainer />
                 </div>
             )
         }else{
@@ -37,7 +39,8 @@ class App extends Component {
 
 function mapStateToProps(state){
     return {
-        user: state.user
+        user: state.user,
+        chats: state.chats
     }
 }
 

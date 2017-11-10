@@ -42,7 +42,7 @@ io.on('connection', (socket) => {
             }
             usersConnected.push(user);
     
-            callback(user)        
+            callback(user, chats)        
         }
         console.log('Users connected', usersConnected)
     })

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { USER_CONNECTION } from '../Events'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { setUser } from '../actions'
+import { setUser, setChats } from '../actions'
 
 class Login extends Component {
 
@@ -33,11 +33,11 @@ class Login extends Component {
      * Callback function when the login form is submitted
      * @param user: the user send by the server
      */
-    connectionCallback = (user) => {
+    connectionCallback = (user, chats) => {
 
         if(user !== null) {  
             this.props.setUser(user);
-
+            this.props.setChats(chats);
         }else {
             this.setState({ userExist: true })
         }
@@ -66,7 +66,8 @@ function mapStateToProps(state){
 
 function matchDispatchToProps(dispatch){
     return bindActionCreators({
-        setUser: setUser
+        setUser: setUser,
+        setChats: setChats
     }, dispatch)
 }
 
