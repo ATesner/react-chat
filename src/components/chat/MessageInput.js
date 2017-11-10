@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { MESSAGE_SENT, IS_TYPING } from '../../Events'
 
-class MessageForm extends Component {
+class MessageInput extends Component {
 
     constructor(props) {
         super(props);
@@ -61,4 +61,4 @@ function mapStateToProps(state){
     }
 }
 
-export default connect(mapStateToProps)(MessageForm);
+export default connect(mapStateToProps)(MessageInput);

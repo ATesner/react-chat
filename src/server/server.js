@@ -8,7 +8,7 @@ var usersConnected = []
 var chats =  [
     {
         id: 0,
-        name: "public",
+        name: "Public",
         messages: []
     }
 ]
@@ -42,16 +42,9 @@ io.on('connection', (socket) => {
             }
             usersConnected.push(user);
     
-            callback(user, chats)        
+            callback(user, chats) //send the user object and chats to user   
         }
         console.log('Users connected', usersConnected)
-    })
-
-    /**
-     * To send all chats to a user
-     */
-    socket.on(GET_CHATS, (callback) => {
-       callback(chats)
     })
 
     /**

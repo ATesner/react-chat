@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux'
 import { selectChat, setUser, setChats, addChat } from '../../actions'
 import { CREATE_CHAT, MESSAGE_SENT, LOGOUT } from '../../Events'
 
-class ChatBar extends Component {
+class SideBar extends Component {
 
     constructor(props) {
         super(props);
@@ -29,37 +29,52 @@ class ChatBar extends Component {
         this.props.addChat(newChat)
     }
 
+    /**
+     * When I submit a new chat
+     */
     handleNewChat = (e) => {
         e.preventDefault()
-        this.setState({ chatExist: false });
-        let chatName = e.target.chatName.value;
-        if(chatName.length > 0){
 
+        this.setState({ chatExist: false }); //set error to null
+        let chatName = e.target.chatName.value; //get the chat name
+
+        if(chatName.length > 0){
+            //send the chatName to the server
             this.props.socket.emit(CREATE_CHAT, chatName, () => {
+                //callback call by the server if the chat already exist
                 this.setState({ chatExist: true });
             })
             e.target.chatName.value = ""
         }
     }
 
+    /**
+     * when there is a new message sent by someone
+     * @param chatId: we will add the message to this chat
+     * @param newMessage: the message sent
+     */
     newMessageToChat = (chatId, newMessage) => {
         //console.log("newMessageToChat", chatId, message)
-        let newChats = this.props.chats.map( (chat) => {
 
-            if(chat.id === chatId){
-                chat.messages.push(newMessage)
+        let newChats = this.props.chats.map( (chat) => { //fetch the chats
+
+            if(chat.id === chatId){ //if this is the chat concerned by the new message
+                chat.messages.push(newMessage) //add the new message to this chat
             }
-            return chat
+            return chat //return the chat
         })
-        console.log('MESSAGE ADDED', newChats)
-        this.props.setChats(newChats)
+
+        this.props.setChats(newChats) //update all the chats (with the new message)
     }
 
+    /**
+     * when I click on the logout button
+     */
     logout = () => {
 
         const { socket, user } = this.props
-        socket.emit(LOGOUT, user)
-        this.props.setUser(null)
+        socket.emit(LOGOUT, user) //send logout with my name the server
+        this.props.setUser(null) //set the user to null (redirect to login page)
     }
 
     render() {
@@ -76,7 +91,7 @@ class ChatBar extends Component {
                 <h4> Chat List </h4>
                 <ul className="list-group">
                     {
-                        this.props.chats.map((chat, index) => {
+                        this.props.chats.map((chat, index) => { //fetch the chats list
                             return(
                                 <li className="chatList" key={chat.id} 
                                     onClick={ () => this.props.selectChat(index) } > 
@@ -114,4 +129,4 @@ function matchDispatchToProps(dispatch){
     }, dispatch)
 }
 
-export default connect(mapStateToProps, matchDispatchToProps)(ChatBar);
+export default connect(mapStateToProps, matchDispatchToProps)(SideBar);

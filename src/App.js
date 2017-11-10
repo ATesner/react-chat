@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux'
 import { setSocket } from './actions'
 import io from 'socket.io-client'
 import Login from './components/Login'
-import ChatBar from './components/chat/ChatBar'
+import SideBar from './components/chat/SideBar'
 import ChatContainer from './components/chat/ChatContainer'
 import './app.css'
 
@@ -14,20 +14,20 @@ class App extends Component {
 
     componentWillMount(){
 
-        let socket = io(socketURL)
-        this.props.setSocket(socket)
+        let socket = io(socketURL) //connect the socket client to the server
+        this.props.setSocket(socket) //set the socket in the store
     }
 
     render() {
-
+        //if the user and all chats is set (if I submit a login) show the chat
         if(this.props.user && this.props.chats){
             return (
                 <div className="container">
-                    <ChatBar />
+                    <SideBar />
                     <ChatContainer />
                 </div>
             )
-        }else{
+        }else{ //if no user, show the login page
             return (
                 <div className="container">
                     <Login />

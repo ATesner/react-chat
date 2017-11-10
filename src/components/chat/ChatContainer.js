@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Messages from './Messages'
-import MessageForm from './MessageForm'
+import MessageInput from './MessageInput'
 import { IS_TYPING } from '../../Events'
 import { connect } from 'react-redux'
 
@@ -10,49 +10,41 @@ class ChatContainer extends Component {
         super(props);
         
         this.state = {
-            //selectedChat: null,
             whoIsTyping: null
         }
     }
     
     componentWillMount() {
-
         this.props.socket.on(IS_TYPING, this.whoIsTyping)
     }
 
-    sendTyping = (isTyping) => {
-
-        const { socket, user, chats, activeChatIndex } = this.props
-
-         //if the user is typing
-        socket.emit(IS_TYPING, isTyping, user.name, chats[activeChatIndex].id )
-        
-    }
-
+    /**
+     * call when a user is typing in a chat
+     */
     whoIsTyping = (isTyping, username, chatId) => {
-
         //console.log('WhoIsTyping', isTyping, username, chatId)
         const { user, chats, activeChatIndex } = this.props
 
-        if(isTyping && user.name !== username && chats[activeChatIndex].id === chatId){
-            this.setState({ whoIsTyping: username })
+        if(isTyping && user.name !== username //if someone is typing and if it's not me
+          && activeChatIndex != null //and if I have selected a chat
+          && chats[activeChatIndex].id === chatId){ //and I select the chat where someone is typing
+
+            this.setState({ whoIsTyping: username }) //set the name of the person
         }else{
-            this.setState({ whoIsTyping: null })
+            this.setState({ whoIsTyping: null }) //if nobody is typing
         }
     }
 
-
     render() {
-        const { activeChatIndex } = this.props
-        console.log('maiiiis heuu', activeChatIndex)
-        if(activeChatIndex != null){
+
+        if(this.props.activeChatIndex != null){ //if I selected a chat
             return (
                 <div className="chat-container">
                     <Messages  />
                     <div className="isTyping-container"> 
                         { this.state.whoIsTyping ? this.state.whoIsTyping + ' is typing...' :  null } 
                     </div>
-                    <MessageForm />
+                    <MessageInput />
                 </div>
             )
         }else{
