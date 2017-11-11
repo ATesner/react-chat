@@ -3,20 +3,6 @@ import { connect } from 'react-redux'
 
 class Messages extends Component {
 
-    constructor(props) {
-        super(props);
-        
-        this.state = {
-            
-        }
-    }
-    
-   /* componentWillReceiveProps(nextProps) {
-        console.log('newProps', nextProps)
-        this.setState({ messages: nextProps.messages }); 
-        console.log('NEWSTATE', this.state.messages) 
-    }*/
-
     render() {
         const { chats, activeChatIndex, user } = this.props
         console.log('activeeeeee', chats[activeChatIndex])

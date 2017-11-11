@@ -15,10 +15,15 @@ class SideBar extends Component {
     }
 
     componentWillMount() {
-        
         const { socket } = this.props
         socket.on(CREATE_CHAT, this.addChat)
         socket.on(MESSAGE_SENT, this.newMessageToChat)
+    }
+
+    componentWillUnmount() {
+        const { socket } = this.props
+        socket.off(CREATE_CHAT)
+        socket.off(MESSAGE_SENT)   
     }
 
     /**
@@ -54,7 +59,6 @@ class SideBar extends Component {
      * @param newMessage: the message sent
      */
     newMessageToChat = (chatId, newMessage) => {
-        //console.log("newMessageToChat", chatId, message)
 
         let newChats = this.props.chats.map( (chat) => { //fetch the chats
 
@@ -63,7 +67,6 @@ class SideBar extends Component {
             }
             return chat //return the chat
         })
-
         this.props.setChats(newChats) //update all the chats (with the new message)
     }
 
@@ -74,6 +77,8 @@ class SideBar extends Component {
 
         const { socket, user } = this.props
         socket.emit(LOGOUT, user) //send logout with my name the server
+        this.props.selectChat(null)
+        this.props.setChats(null)
         this.props.setUser(null) //set the user to null (redirect to login page)
     }
 

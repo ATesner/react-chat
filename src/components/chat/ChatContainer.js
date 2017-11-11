@@ -18,6 +18,10 @@ class ChatContainer extends Component {
         this.props.socket.on(IS_TYPING, this.whoIsTyping)
     }
 
+    componentWillUnmount() {
+        this.props.socket.off(IS_TYPING)
+    }
+
     /**
      * call when a user is typing in a chat
      */
