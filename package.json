@@ -4,8 +4,9 @@
   "description": "A chat app made with React, socket.io and MongoDB",
   "main": "index.js",
   "scripts": {
-    "start": "set NODE_ENV='development' && concurrently \"npm run server\" \"npm run chat\"",
-    "start-prod": "npm run build && concurrently \"node src/server/server.js\" \"./node_modules/serve/bin/serve.js -s build\"",
+    "start": "concurrently \"npm run server\" \"npm run chat\"",
+    "start-chat-prod": "npm run build && ./node_modules/serve/bin/serve.js -s build\"",
+    "start-server-prod": "node src/server/server.js",
     "chat": "react-scripts start",
     "server": "nodemon ./src/server/server.js",
     "build": "react-scripts build",

@@ -9,7 +9,7 @@ import ChatContainer from './components/chat/ChatContainer'
 import './app.css'
 
 var socketURL = (process.env.NODE_ENV === "production") ? 
-    "https://murmuring-escarpment-77843.herokuapp.com:3008/" : "http://localhost:3008"
+    "https://react-chat-server-api.herokuapp.com/" : "http://localhost:3008"
 
 class App extends Component {
 
