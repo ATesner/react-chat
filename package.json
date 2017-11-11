@@ -4,18 +4,23 @@
   "description": "A chat app made with React, socket.io and MongoDB",
   "main": "index.js",
   "scripts": {
+    "start": "set NODE_ENV='development' && concurrently \"npm run server\" \"npm run chat\"",
+    "start-prod": "npm run build && concurrently \"node src/server/server.js\" \"./node_modules/serve/bin/serve.js -s build\"",
     "chat": "react-scripts start",
     "server": "nodemon ./src/server/server.js",
+    "build": "react-scripts build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "TESNER Antoine",
   "license": "ISC",
   "dependencies": {
+    "concurrently": "^3.5.0",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "react-redux": "^5.0.6",
     "react-scripts": "^1.0.16",
     "redux": "^3.7.2",
+    "serve": "^6.4.1",
     "socket.io": "^2.0.4"
   },
   "devDependencies": {

@@ -8,13 +8,15 @@ import SideBar from './components/chat/SideBar'
 import ChatContainer from './components/chat/ChatContainer'
 import './app.css'
 
-var socketURL = "http://localhost:3008"
+var socketURL = (process.env.NODE_ENV === "production") ? 
+    "https://murmuring-escarpment-77843.herokuapp.com:3008/" : "http://localhost:3008"
 
 class App extends Component {
 
     componentWillMount(){
 
         let socket = io(socketURL) //connect the socket client to the server
+        console.log(socketURL, process.env.NODE_ENV);
         this.props.setSocket(socket) //set the socket in the store
     }
 
