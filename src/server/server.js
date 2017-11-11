@@ -1,7 +1,7 @@
 const server = require('http').createServer()
 const io = require('socket.io')(server)
 const { USER_CONNECTION, MESSAGE_SENT, CREATE_CHAT, GET_CHATS, IS_TYPING, LOGOUT } = require('../Events')
-const PORT = 3008
+const PORT = process.env.PORT || 3008
 
 var usersConnected = []
 
