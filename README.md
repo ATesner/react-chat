@@ -5,9 +5,10 @@ The front is in React and the back in NodeJS
 
 Test the app at : https://realtime-reactchat.netlify.com/
 
-#Todo
+# Todo
 
 - Revoir le scroll
 - Marges pour les messages (en bas)
 - Auto logout a la fermeture de la fenêtre
 - date dans les messages
+- return chat et setChats on message sent
