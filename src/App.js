@@ -16,12 +16,11 @@ class App extends Component {
     componentWillMount(){
 
         let socket = io(socketURL) //connect the socket client to the server
-        console.log(socketURL, process.env.NODE_ENV);
+        //console.log(socketURL, process.env.NODE_ENV);
         this.props.setSocket(socket) //set the socket in the store
     }
 
     render() {
-        console.log('Appjs !')
         //if the user and all chats is set (if I submit a login) show the chat
         if(this.props.user && this.props.chats){
             return (

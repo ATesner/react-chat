@@ -18,7 +18,7 @@ class MessageInput extends Component {
 
         let message = e.target.message.value
         const { socket, user, activeChatIndex, chats } = this.props
-        console.log('EmitMessage', chats[activeChatIndex].id,  message)
+        //console.log('EmitMessage', chats[activeChatIndex].id,  message)
         socket.emit(MESSAGE_SENT, chats[activeChatIndex].id, message, user.name)
 
         e.target.message.value = ""
