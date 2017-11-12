@@ -21,7 +21,6 @@ class App extends Component {
     }
 
     render() {
-        console.log('Render App')
         //if the user and all chats is set (if I submit a login) show the chat
         if(this.props.user && this.props.chats){
             return (
