@@ -5,7 +5,7 @@ class Messages extends Component {
 
     render() {
         const { chats, activeChatIndex, user } = this.props
-        console.log('activeeeeee', chats[activeChatIndex])
+        console.log('Render message', chats[activeChatIndex])
         return (
             <div className="message-container" >
                 {

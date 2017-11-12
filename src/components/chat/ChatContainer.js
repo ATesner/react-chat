@@ -19,6 +19,7 @@ class ChatContainer extends Component {
     }
 
     componentWillUnmount() {
+        console.log('unmount chatContainer')
         this.props.socket.off(IS_TYPING)
     }
 

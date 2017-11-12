@@ -22,6 +22,7 @@ class SideBar extends Component {
 
     componentWillUnmount() {
         const { socket } = this.props
+        console.log('unmount sideBar')
         socket.off(CREATE_CHAT)
         socket.off(MESSAGE_SENT)   
     }
