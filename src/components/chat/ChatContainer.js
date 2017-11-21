@@ -23,6 +23,11 @@ class ChatContainer extends Component {
         this.props.socket.off(IS_TYPING)
     }
 
+    componentDidUpdate(){
+        const { chatContainer } = this.refs;
+        chatContainer.scrollTop = chatContainer.scrollHeight;
+    }
+
     /**
      * call when a user is typing in a chat
      */
@@ -44,7 +49,7 @@ class ChatContainer extends Component {
 
         if(this.props.activeChatIndex != null){ //if I selected a chat
             return (
-                <div className="chat-container">
+                <div className="chat-container" ref="chatContainer">
                     <Messages  />
                     <div className="isTyping-container"> 
                         { this.state.whoIsTyping ? this.state.whoIsTyping + ' is typing...' :  null } 

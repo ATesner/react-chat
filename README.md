@@ -7,7 +7,7 @@ Test the app at : https://realtime-reactchat.netlify.com/
 
 # Todo
 
-- Revoir le scroll
+- Revoir le scroll -> DONE
 - Marges pour les messages (en bas)
 - Auto logout a la fermeture de la fenêtre
 - date dans les messages
