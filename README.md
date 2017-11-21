@@ -9,7 +9,7 @@ Test the app at : https://realtime-reactchat.netlify.com/
 
 - Revoir le scroll -> DONE
 - Marges pour les messages (en bas) -> DONE
-- Auto logout a la fermeture de la fenêtre
+- Auto logout a la fermeture de la fenêtre -> DONE
 - date dans les messages
 - return chat et setChats on message sent
 - tuto flexbox pour le css

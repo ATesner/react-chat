@@ -20,6 +20,15 @@ server.listen(PORT, () => {
 io.on('connection', (socket) => {
     //console.log('Client Connecté !')
 
+    socket.on('disconnect', () => {
+        for(let i=0; i< usersConnected.length; i++){
+            if(usersConnected[i].id == socket.id){
+                console.log('DECO de ' + usersConnected[i].name)
+                usersConnected.splice(i, 1)
+            }
+        }
+    })
+
     /**
      * when a user submit the login form
      */
