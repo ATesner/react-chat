@@ -12,4 +12,6 @@ Test the app at : https://realtime-reactchat.netlify.com/
 - Auto logout a la fermeture de la fenêtre -> DONE
 - date dans les messages
 - return chat et setChats on message sent
+- centrer les noms des chats
+- indiquer chat selectionné (sideBar et header)
 - tuto flexbox pour le css
