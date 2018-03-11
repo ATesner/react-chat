@@ -25,7 +25,9 @@ class ChatContainer extends Component {
 
     componentDidUpdate(){
         const { chatContainer } = this.refs;
-        chatContainer.scrollTop = chatContainer.scrollHeight;
+        if(chatContainer){
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
     }
 
     /**
