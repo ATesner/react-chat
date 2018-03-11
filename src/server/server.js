@@ -5,7 +5,6 @@ const io = require('socket.io')(server)
 const { USER_CONNECTION, MESSAGE_SENT, CREATE_CHAT, GET_CHATS, IS_TYPING, LOGOUT } = require('../Events')
 const PORT = process.env.PORT || 3008
 
-app.use(express.static(__dirname + '/../../build'))
 
 var usersConnected = []
 
@@ -16,10 +15,7 @@ var chats =  [
         messages: []
     }
 ]
-
-server.listen(PORT, () => {
-    console.log('Server listening on PORT ' + PORT)
-})
+app.use(express.static(__dirname + '/../../build'))
 
 io.on('connection', (socket) => {
     //console.log('Client Connecté !')
@@ -117,3 +113,6 @@ io.on('connection', (socket) => {
 })
 
 
+server.listen(PORT, () => {
+    console.log('Server listening on PORT ' + PORT)
+})

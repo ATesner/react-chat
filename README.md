@@ -14,7 +14,7 @@ Test the app at : https://realtime-reactchat.netlify.com/
 
 2. Run back and front
     ```javascript
-    npm start
+    npm run dev
     ```
 
 ## Todo
