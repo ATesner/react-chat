@@ -4,7 +4,8 @@
   "description": "A chat app made with React, socket.io and MongoDB",
   "main": "index.js",
   "scripts": {
-    "start": "concurrently \"npm run server\" \"npm run chat\"",
+    "start": "node src/server/server.js",
+    "dev": "concurrently \"npm run server\" \"npm run chat\"",
     "start-server-prod": "node src/server/server.js",
     "chat": "react-scripts start",
     "server": "nodemon ./src/server/server.js",
@@ -15,6 +16,7 @@
   "license": "ISC",
   "dependencies": {
     "concurrently": "^3.5.0",
+    "express": "^4.16.2",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "react-redux": "^5.0.6",

@@ -17,7 +17,7 @@ Test the app at : https://realtime-reactchat.netlify.com/
     npm start
     ```
 
-# Todo
+## Todo
 
 - Revoir le scroll -> DONE
 - Marges pour les messages (en bas) -> DONE
