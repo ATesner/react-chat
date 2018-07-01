@@ -48,9 +48,11 @@ class Login extends Component {
         return (
             <div className="login-container">
                 <form onSubmit={this.handleSubmit} className="login-form">
-                    <label htmlFor="nameInput"> Choose a name </label>
-                    <input type="text" name="surname" placeholder="What's your surname ?" id="nameInput" />
-                    <button type="submit"> Enter </button>
+                    <label htmlFor="nameInput" className="inp">
+                        <input type="text" name="surname" id="nameInput" placeholder="&nbsp;" />
+                        <span className="label">Nickname</span>
+                        <span className="border"></span>
+                    </label>
                     <div className="error"> { this.state.userExist ? 'User is taken': null} </div>
                 </form>
             </div>

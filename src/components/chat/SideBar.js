@@ -87,21 +87,21 @@ class SideBar extends Component {
 
         return (
             <div className="menubar-container">
-                <h3> React Chat </h3>
+                <h3 className="title"> BiblioTech Chat </h3>
                 <form onSubmit={this.handleNewChat}>
-                    <input className="form-control" type="text" name="chatName" placeholder="Add a new chat" />
-                    <input className="form-control" type="submit" value="Create" />
+                    <input className="form-control" type="text" name="chatName" placeholder="Add a new room" required/>
+                    <input className="form-control" type="submit" value="Create Room" />
                     <div className="error"> { this.state.chatExist ? 'Chat already exist': null} </div>
                 </form>
                 <hr/>
-                <h4> Chat List </h4>
+                <h4 className="subtitle"> Room List </h4>
                 <ul className="list-group">
                     {
                         this.props.chats.map((chat, index) => { //fetch the chats list
                             return(
-                                <li className="chatList" key={chat.id} 
+                                <li className="list-chat-item" key={chat.id} 
                                     onClick={ () => this.props.selectChat(index) } > 
-                                    {chat.name}
+                                    <span className="title">{chat.name}</span>
                                 </li>
                             )
 
@@ -110,7 +110,7 @@ class SideBar extends Component {
                     
                 </ul>
                 <div className="user-container">
-                    <div>Your name: { this.props.user.name}</div>
+                    <div className="subtitle">Your name: { this.props.user.name}</div>
                     <button className="btn btn-block btn-danger" onClick={this.logout}>Logout</button>
                 </div>
             </div>

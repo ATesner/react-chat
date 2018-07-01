@@ -17,24 +17,83 @@ html,body,#root{
     padding: 0;
 }
 .login-form{display:flex;justify-content:center;flex-direction:column}
+
+.inp {
+    position: relative;
+    margin: auto;
+    width: 100%;
+    max-width: 280px;
+  }
+  .inp .label {
+    position: absolute;
+    top: 16px;
+    left: 0;
+    font-size: 16px;
+    color: white;
+    font-weight: 500;
+    transform-origin: 0 0;
+    transition: all 0.2s ease;
+  }
+  .inp .border {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 2px;
+    width: 100%;
+    background: rgb(238, 175, 2);
+    transform: scaleX(0);
+    transform-origin: 0 0;
+    transition: all 0.15s ease;
+  }
+  .inp input {
+    -webkit-appearance: none;
+    width: 100%;
+    border: 0;
+    font-family: inherit;
+    padding: 12px 0;
+    height: 48px;
+    font-size: 16px;
+    font-weight: 500;
+    border-bottom: 2px solid #c8ccd4;
+    background: none;
+    border-radius: 0;
+    color: rgb(238, 175, 2);
+    transition: all 0.15s ease;
+  }
+  .inp input:hover {
+    background: rgb(65, 65, 65);
+  }
+
+  .inp input:focus {
+    background: none;
+    outline: none;
+  }
+  .inp input:focus + span {
+    color: rgb(238, 175, 2);
+    transform: translateY(-26px) scale(0.75);
+  }
+  .inp input:focus + span + .border {
+    transform: scaleX(1);
+  }
+
+
 .error {
     color: red;
 }
 
-.chatList {
+.list-chat-item {
     cursor: pointer;
     width:100%;
-    height: 40px;
+    height: auto;
+    padding: 5px 0px 5px 0px;
     font-weight: bold;
-    vertical-align: text-bottom;
 }
-
-.chatList:hover {
-    background-color: #49c3f3;
+.list-chat-item:hover {
+    background-color: #555555;
 }
 
 .login-container {
-  
+    background-color: #222222;
     width: 100%;
     height: 100%;
     justify-content: center;
@@ -42,19 +101,27 @@ html,body,#root{
 }
 
 .menubar-container {
-    background-color: #3a9bc2;
+    color: white;
+    background-color: #222222;
     height: 100%;
     min-width: 150px;
     margin:0;
     text-align: center;
-    border: solid 1px black;
+    padding: 5px 10px 10px 5px;
+    border-right: solid 2px rgb(238, 175, 2);
+}
+.title {
+    color: #777777;
+    font-weight: bold;
+}
+.subtitle {
+    color: rgb(238, 175, 2) !important;
 }
 
 .messageForm-container {
     margin: 0;
     position: fixed;
     bottom: 0;
-    width: 100%; 
 }
 
 .user-container {
@@ -95,15 +162,41 @@ html,body,#root{
     display: inline-block;
 }
 
+.chat-header {
+    z-index: 9999;
+    top: 0;
+    overflow: hidden;
+    position: fixed;
+    width:100%;
+    padding: 10px 0px 10px 10px;
+    background-color: #222222;
+    color: #222222;
+    font-weight: bold;
+}
+
 .chat-container {
     width:100%;
     height:100%;
     margin: 0;
     padding-bottom: 35px;
-    background-color: #c7d2f1;
+    background-color: #555555;
     overflow-y:scroll;
 }
 
+.default-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    background-color: #555555;
+    align-items: center; 
+    justify-content: center;
+}
+.default-container span {
+    color: #222222;
+    font-family: Avenir;
+    font-weight: bold;
+    font-size: 5rem;
+}
 .message-author {
     color: black;
     font: italic;

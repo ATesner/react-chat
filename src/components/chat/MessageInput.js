@@ -43,9 +43,13 @@ class MessageInput extends Component {
         return (
             <div className="messageForm-container">
                 <form onSubmit={this.handleMessageFormSubmit} className="messageForm-form" >
-                    <input className="form-control" type="text" name="message" 
-                        placeholder="Type here" onKeyDown={this.handleKeyDown} />
-
+                    <div className="input-group">
+                        <input className="form-control" type="text" name="message" 
+                            placeholder="Type here" onKeyDown={this.handleKeyDown} />
+                        <span className="input-group-btn">
+                            <button type="submit" className="btn btn-success">Send</button>
+                        </span>
+                    </div>
                 </form>
             </div>
         );

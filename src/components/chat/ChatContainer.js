@@ -48,10 +48,14 @@ class ChatContainer extends Component {
     }
 
     render() {
-
         if(this.props.activeChatIndex != null){ //if I selected a chat
+            console.log()
             return (
                 <div className="chat-container" ref="chatContainer">
+                    <div className="chat-header">
+                        <span className="subtitle">Room : {this.props.chats[this.props.activeChatIndex].name}</span>
+                    </div>
+                    <br/><br/><br/>
                     <Messages  />
                     <div className="isTyping-container"> 
                         { this.state.whoIsTyping ? this.state.whoIsTyping + ' is typing...' :  null } 
@@ -61,8 +65,8 @@ class ChatContainer extends Component {
             )
         }else{
             return (
-                <div className="chat-container">
-                    Choose a chat :)    
+                <div className="default-container">
+                   <span>Choose a room :)</span>
                 </div>
             );
         }
