@@ -11,7 +11,7 @@ class Messages extends Component {
                 {
                     chats[activeChatIndex].messages.map((message, index) => {
                         return (
-                            <div className={(user.name !== message.username ? 'right' : '')} key={index}>
+                            <div className={(user.name !== message.username ? 'right' : 'left')} key={index}>
                             <div className="message-author"> 
                                 { user.name === message.username ? 
                                     'Me :'

@@ -151,14 +151,23 @@ html,body,#root{
 }
 
 .right {
-    text-align:right;justify-content:flex-end
+    text-align:right;
+    justify-content:flex-end;
 }
 
-.message-text{
+.right .message-text{
+    color: black;
     border-radius:5px;
-    border-top-left-radius:0;
+    border-top-right-radius:0;
+    padding:10px 15px;
+    display: inline-block;
+}
+
+.left .message-text{
     color: black;
     padding:10px 15px;
+    border-radius:5px;
+    border-top-left-radius:0;
     display: inline-block;
 }
 
@@ -198,6 +207,6 @@ html,body,#root{
     font-size: 5rem;
 }
 .message-author {
-    color: black;
+    color: white;
     font: italic;
 }
